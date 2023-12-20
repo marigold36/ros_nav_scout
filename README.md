@@ -3,7 +3,7 @@
 
 ​	环境：ROS Noetic
 
-​	在https://github.com/rand0md00r/ros_nav_scout基础上进行的修改，请确保你可以成功编译。
+​	在https://github.com/rand0md00r/ros_nav_scout 基础上进行的修改，请确保你可以成功编译。
 
 ## 模型准备
 
@@ -70,7 +70,8 @@ roslaunch pointcloud_to_laserscan point_to_scan.launch
 
 ​	查看节点可以看到成功转换
 
-![2023-12-19 15-13-03 的屏幕截图](pics/2023-12-19 15-13-03 的屏幕截图.png)
+![2023-12-19 15-13-03 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/4187bbb5-4d8e-49ed-a18a-01d0083b1e0d)
+
 
 ​	`point_to_scan.launch`中的以下参数可以调整单帧雷达数据数量（gmapping最多支持1440，超出会报错），主要是调整步长`angle_increment`。
 
@@ -94,7 +95,8 @@ roslaunch scout_gazebo scout_mapping.launch
 
 ​	如下图
 
-![2023-12-19 15-16-20 的屏幕截图](pics/2023-12-19 15-16-20 的屏幕截图.png)
+![2023-12-19 15-16-20 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/31438567-8151-449f-a6d7-a5854e73754d)
+
 
 
 
@@ -114,7 +116,8 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
 ​	用键盘控制小车进行建图
 
-![2023-12-18 21-01-50 的屏幕截图](pics/2023-12-18 21-01-50 的屏幕截图.png)
+![2023-12-18 21-01-50 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/907e2f4b-2759-4b8e-8e0a-557f5ab3fb00)
+
 
 
 
@@ -136,8 +139,8 @@ roslaunch scout_slam_nav map_saver.launch
 ```
 
 ​	路径下生成.pgm和.yaml文件
+![2023-12-19 15-40-09 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/9dee7c46-d0ae-4634-be99-5fd06f5704fc)
 
-![2023-12-19 15-40-09 的屏幕截图](pics/2023-12-19 15-40-09 的屏幕截图.png)
 
 
 
@@ -176,7 +179,8 @@ roslaunch scout_slam_nav nav.launch
 
 ​	 amcl 预估的当前机器人的位姿，箭头越是密集，说明当前机器人处于此位置的概率越高。
 
-![2023-12-19 16-11-00 的屏幕截图](pics/2023-12-19 16-11-00 的屏幕截图.png)
+![2023-12-19 16-11-00 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/af20a91f-9867-4765-8d7a-b6b5f15a49c9)
+
 
 
 
@@ -200,15 +204,18 @@ roslaunch scout_slam_nav nav.launch
 
 ​	全局代价地图与本地代价地图组件配置如下:
 
-![2023-12-19 16-53-25 的屏幕截图](pics/2023-12-19 16-53-25 的屏幕截图.png)
+![2023-12-19 16-53-25 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/120bfdee-0175-481e-bdbb-fd7afb7a34b7)
+
 
 ​	全局路径规划与本地路径规划组件配置如下:
 
-![2023-12-19 16-59-49 的屏幕截图](pics/2023-12-19 16-59-49 的屏幕截图.png)
+![2023-12-19 16-59-49 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/1908ed42-b2ac-4cc1-883a-a30e57d6a311)
+
 
 ​	通过Rviz工具栏的 2D Nav Goal设置目的地实现导航。
 
-![2023-12-20 14-07-28 的屏幕截图](pics/2023-12-20 14-07-28 的屏幕截图.png)
+![2023-12-20 14-07-28 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/9cd0649e-4952-4e77-9036-d210ff5f7083)
+
 
 ​	将gazebo仿真环境集成到`nav.launch`，只需启动一个launch文件即可导航了。
 
@@ -219,4 +226,5 @@ roslaunch scout_slam_nav nav.launch
 
 ​	导航过程中，在**gazebo**添加新的障碍物，机器人也可以自动躲避障碍物。
 
-![2023-12-20 14-07-45 的屏幕截图](pics/2023-12-20 14-07-45 的屏幕截图.png)
+![2023-12-20 14-07-45 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/bd41b2d3-9ffc-4a2f-9526-6150fb0048ff)
+
