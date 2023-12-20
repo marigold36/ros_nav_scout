@@ -1,0 +1,35 @@
+TrajectoryPlannerROS:
+
+# Robot Configuration Parameters
+  max_vel_x: 0.7   # X 方向最大速度
+  min_vel_x: 0.1   # X 方向最小速度，若太大，会导致小车绕终点旋转
+  max_vel_y: 0.7   # Y 方向最大速度
+  min_vel_y: 0.1   # Y 方向最小速度
+
+  max_vel_theta:  1.0           # 底座允许的最大旋转速度（弧度/秒），减小
+  min_vel_theta: -1.0           # 底座允许的最小旋转速度（弧度/秒）
+  min_in_place_vel_theta: 0.4   # 以弧度/秒为单位执行原地旋转时，基座允许的最小旋转速度
+
+  acc_lim_x: 2.5      # X 加速限制
+  acc_lim_y: 2.5      # Y 加速限制
+  acc_lim_theta: 2.0  # 角速度加速限制
+
+# Goal Tolerance Parameters，目标公差，增大
+  xy_goal_tolerance: 0.10
+  yaw_goal_tolerance: 0.05
+
+# Differential-drive robot configuration
+# 是否是完整系统，即控制输入的结果与路径有无关，无关为完整系统，值为true，有关为非完整系统，值为false
+# 控制输入与路径有无关的例子：
+# 对于无轮车，只能前后走，不能转弯，先往前走10米再向后走3米和先向后走3米再往前走10米，结果一样，是完整系统；
+# 对于独轮车，能前后走，也能转弯，先左转45度，再走10米和先走10米再左转45度，结果不一样，是非完整系统
+# 对于完整系统，可以向base发出扫射速度指令（strafing velocity commands）
+  holonomic_robot: false
+
+# Forward Simulation Parameters，前进模拟参数
+  sim_time: 1.5             # default:1.7,仿真时间，仿真距离=sim_time*vel，越大对硬件要求越高
+  vx_samples: 20            # x轴方向速度采样数量，默认3
+  vy_samples: 25            # y轴方向速度采样数量,默认10
+  vtheta_samples: 20        # 角速度采样数量，默认20
+  sim_granularity: 0.05     # default: 0.025,轨迹的碰撞检测距离
+  controller_frequency: 20  # default: 20.0,发布控制速度的频率

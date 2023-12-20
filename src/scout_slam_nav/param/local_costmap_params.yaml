@@ -1,0 +1,14 @@
+local_costmap:
+   global_frame: map         
+   robot_base_frame: base_footprint  # 机器人坐标系
+   update_frequency: 10.0            # 代价地图更新频率
+   publish_frequency: 5.0           # 代价地图的发布频率
+   # static_map: false            # 不需要静态地图，因为还可能有动态障碍物，可以提升导航效果
+   rolling_window: true           # 是否使用滚动窗口，若设true，则始终保持机器人在当前局部地图的中心位置
+   width: 6                       # 局部地图宽度 单位是 m
+   height: 6                      # 局部地图高度 单位是 m
+   resolution: 0.05               # 局部地图分辨率 单位是 m，一般与静态地图分辨率保持一致
+   transform_tolerance: 1.0 #0.3~10     # 等待坐标变换发布信息的超时时间
+   plugins:
+    - {name: obstacle_layer,      type: "costmap_2d::VoxelLayer"}
+    - {name: inflation_layer,     type: "costmap_2d::InflationLayer"}

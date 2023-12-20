@@ -1,0 +1,71 @@
+DWAPlannerROS:
+
+# Robot Configuration Parameters - stdr robot
+  
+  # 加速度限制（acc_lim_x，acc_lim_y，acc_lim_th）非常的重要，
+  # 如果不知道机器人的加速度，可以尽量的往大的设置，
+  # 因为如果设置太小了，往往会出现机器人往前跑断断续续的，转弯转过头
+  # 转弯转过头看似是加速度太大了，实际是加速度太小，以至于机器人想把机器人掰回来而掰不及，从而导致反复的震荡（oscillating over and over）
+  acc_lim_x: 3.5   # x方向的加速度绝对值，默认2.5
+  acc_lim_y: 0.0   # y方向的加速度绝对值，默认2.5（仅对omni有效）
+  acc_lim_th: 5.5  # 旋转加速度的绝对值，默认3.2
+
+  max_trans_vel: 0.5  # 平移速度最大值绝对值
+  min_trans_vel: 0.1  # 平移速度最小值的绝对值
+
+  # 下面的x向速度影响前后直行，y向速度影响左右旋转
+  max_vel_x: 0.3   # x方向最大速度的绝对值
+  min_vel_x: -0.3   # x方向最小值绝对值,如果为负值表示可以后退
+  max_vel_y: 0.01   # y方向最大速度的绝对值
+  min_vel_y: -0.01   # y方向最小速度的绝对值
+
+  max_rot_vel: 0.001  # 最大旋转速度的绝对值，1弧度约等于57度
+  min_rot_vel: -0.001  # 最小旋转速度的绝对值
+
+# Goal Tolerance Parameters
+
+  yaw_goal_tolerance: 1.0        # 到达目标点时偏行角允许的误差，单位弧度
+  xy_goal_tolerance: 0.2         # 到达目标点时,在xy平面内与目标点的距离误差
+
+  # 如果为true，就是当进入xy_goal_tolerance范围内后会设置一个锁，此后即使在旋转调整yaw的过程中跳出xy_goal_tolerance，也不会进行xy上的调整
+  latch_xy_goal_tolerance: true  # 是否锁存，详情见上面
+
+# Forward Simulation Parameters
+
+  sim_time: 4.0              # 向前仿真轨迹的时间，太小（<2）过不了窄门，太大（>5）会生成不太灵活的长曲线
+  sim_granularity: 0.025     # 步长,轨迹上采样点之间的距离,轨迹上点的密集程度
+
+  # 速度样本和其他参数 vy_sample，vy_sample决定了在x，y方向要取多少平移速度样本。
+  # vy_sample控制旋转速度样本的数量。您希望采集的样本数量取决于您拥有多少计算能力。
+  # 在大多数情况下，我们倾向于将vy_sample设置为高于平动速度样本，因为转弯通常比直行更复杂。
+  # 如果将max_vel_y设置为0，则无需在y方向上进行速度采样，因为没有可用的采样。我们选取vy_sample=20，vy_sample=40
+  vx_samples: 50              # x方向速度空间的采样点数，default：3
+  vy_samples: 80              # y方向速度空间采样点数（还要参照前面的max_vel_y）
+  vth_samples: 150            # 旋转方向的速度空间采样点数（旋转更难，要更大）
+
+  controller_frequency: 25.0  # 发送给底盘控制移动指令的频率，同样，别太小（>20），否则也会一顿一顿的
+
+# Trajectory Scoring Parameters
+  
+  # 如果可以，最好动态地调整这两个参数
+  # 一开始path_distance_bias大些，让小车贴合全局路径
+  # 越往终点走path_distance_bias应该越小，goal_distance_bias应该越大，让小车更准确地前往终点
+  path_distance_bias: 32.0      # default：32.0，定义控制器与给定路径接近程度的权重，越大则局部路径需要越贴合全局路径
+  # 其实这个参数也能用来控制速度。如果设为0表示要求完全到达目标点，这会导致机器人走动缓慢和震荡的现象，因为要求达到目标点的精度太高，所对机器人的控制比较苛刻
+  goal_distance_bias: 25.0      # default：24.0，定义控制器与局部目标点的接近程度的权重
+  
+
+  occdist_scale: 0.02            # default：0.01，定义控制器躲避障碍物的程度,此参数的高值会导致不确定的机器人卡入到位
+  forward_point_distance: 0.325 # default：0.325，找全局路径的前向点
+  stop_time_buffer: 0.2         # default：0.2，为防止碰撞,机器人必须提前停止的时间长度
+  scaling_speed: 0.20           # default：0.25，启动机器人底盘的速度
+  max_scaling_factor: 0.2       # default：0.2，最大缩放参数
+  publish_cost_grid: false      # 是否发布规划器在规划路径时的代价网格.如果设置为true,那么就会在~/cost_cloud话题上发布sensor_msgs/PointCloud2类型消息
+
+# Oscillation Prevention Parameters
+
+  oscillation_reset_dist: 0.05  # default 0.05，机器人运动多远距离才会重置振荡标记
+
+# Global Plan Parameters
+
+  prune_plan: false  # 机器人前进是是否清除身后1m外的轨迹
