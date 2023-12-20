@@ -139,6 +139,7 @@ roslaunch scout_slam_nav map_saver.launch
 ```
 
 ​	路径下生成.pgm和.yaml文件
+
 ![2023-12-19 15-40-09 的屏幕截图](https://github.com/marigold36/ros_nav_scout/assets/147798974/9dee7c46-d0ae-4634-be99-5fd06f5704fc)
 
 
